@@ -1,5 +1,9 @@
 const { projects, workers } = require('../sampleData.js')
 
+// Mongoose models
+const Project = require('../models/Project')
+const Worker = require('../models/Worker')
+
 const { 
   GraphQLObjectType,
   GraphQLID,
@@ -19,7 +23,7 @@ const ProjectType = new GraphQLObjectType({
     worker: {
       type: WorkerType,
       resolve (parent, args) {
-        return workers.find(worker => worker.id === parent.workerId)
+        return workers.findById(parent.workerId)
       }
     }
   }),
@@ -42,30 +46,30 @@ const RootQuery = new GraphQLObjectType({
     projects: {
       type: new GraphQLList(ProjectType),
       resolve (parent, args) {
-        return projects
+        return Project.find()
       },
     },
     project: {
       type: ProjectType,
       args: { id: { type: GraphQLID } },
       resolve (parent, args) {
-        return projects.find((project) => project.id === args.id)
+        return Project.findById(args.id)
       },
     },
     workers: {
       type: new GraphQLList(WorkerType),
       resolve (parent, args) {
-        return workers
+        return Worker.find()
       },
     },
     worker: {
       type: WorkerType,
       args: { id: { type: GraphQLID } },
       resolve (parent, args) {  
-         return workers.find(worker => worker.id === args.id)
-      }
-    }
-  }
+         return Worker.findById(args.id)
+      },
+    },
+  },
 })
 
 module.exports = new GraphQLSchema({
