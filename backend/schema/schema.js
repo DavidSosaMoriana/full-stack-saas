@@ -1,5 +1,3 @@
-const { projects, workers } = require('../sampleData.js')
-
 // Mongoose models
 const Project = require('../models/Project')
 const Worker = require('../models/Worker')
