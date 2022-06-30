@@ -9,7 +9,9 @@ const {
   GraphQLID,
   GraphQLString,
   GraphQLSchema,
-  GraphQLList
+  GraphQLList,
+  GraphQLNonNull,
+  GraphQLEnumType
 } = require('graphql')
 
 //Project
@@ -23,7 +25,7 @@ const ProjectType = new GraphQLObjectType({
     worker: {
       type: WorkerType,
       resolve (parent, args) {
-        return workers.findById(parent.workerId)
+        return Worker.findById(parent.workerId)
       }
     }
   }),
@@ -72,6 +74,113 @@ const RootQuery = new GraphQLObjectType({
   },
 })
 
+const mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    // Añadir un trabajador
+    addWorker: {
+      type: WorkerType,
+      args: {
+        name: { type: GraphQLNonNull (GraphQLString) },
+        email: { type: GraphQLNonNull (GraphQLString) },
+        location: { type: GraphQLNonNull (GraphQLString) },
+      },
+      resolve (parent, args) {
+        const worker = new Worker ({
+          name: args.name,
+          email: args.email,
+          location: args.location,
+        })
+
+        return worker.save()
+      },
+    },
+    // Eliminar un trabajador
+      deleteWorker: {
+        type: WorkerType,
+        args: {
+          id: { type: GraphQLNonNull(GraphQLID) },
+        },
+        resolve (parent, args) {
+          return Worker.findByIdAndRemove(args.id)
+        },
+      },
+      //Asignar proyecto
+      addProject: {
+        type: ProjectType,
+        args: {
+          name: { type: GraphQLNonNull(GraphQLString) },
+          description: { type: GraphQLNonNull(GraphQLString) },
+          status: {
+            type: new GraphQLEnumType({
+              name: 'ProjectStatus',
+              values: {
+                new: { value: 'Not Started' },
+                progress: { value: 'In Progress' },
+                completed: { value: 'Completed' },
+              },
+            }),
+            defaultValue: 'Not Started',
+          },
+          workerId: { type: GraphQLNonNull(GraphQLID) },
+        },
+        resolve (parent, args) {
+          const project = new Project({
+            name: args.name,
+            description: args.description,
+            status: args.status,
+            workerId: args.workerId,
+          })
+          
+          return project.save()
+        },
+      },
+      //Borrar proyecto
+      deleteProject: {
+        type: ProjectType,
+        args: {
+          id: { type: GraphQLNonNull(GraphQLID) },
+        },
+        resolve(parent, args) {
+          return Project.findByIdAndRemove(args.id);
+        },
+      },
+      // Actualizar proyecto
+      updateProject: {
+        type: ProjectType,
+        args: {
+          id: { type: GraphQLNonNull(GraphQLID) },
+          name: { type: GraphQLString },
+          description: { type: GraphQLString },
+          status: {
+            type: new GraphQLEnumType({
+              name: 'ProjectStatusUpdate',
+              values: {
+                new: { value: 'Not Started' },
+                progress: { value: 'In Progress' },
+                completed: { value: 'Completed' },
+              },
+            }),
+          },
+        },
+        resolve (parent, args) {
+          return Project.findByIdAndUpdate(
+            args.id,
+            {
+              $set: {
+                name: args.name,
+                description: args.description,
+                status: args.status,
+              },
+            },
+            { new: true }
+          )
+        }
+      }
+  },
+})
+
 module.exports = new GraphQLSchema({
-  query: RootQuery
+  query: RootQuery,
+  mutation
 })

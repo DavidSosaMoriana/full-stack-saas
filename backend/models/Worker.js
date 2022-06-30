@@ -4,7 +4,7 @@ const WorkerSchema = mongoose.Schema({
   name: {
     type: String,
   },
-  name: {
+  email: {
     type: String,
   },
   location: {
