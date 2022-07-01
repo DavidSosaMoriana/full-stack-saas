@@ -4,18 +4,11 @@ import { DELETE_WORKER } from '../mutations/WorkerMutations'
 import { GET_WORKERS } from '../queries/workerQueries'
 
 
-const WorkerRow = ({ worker }) => {
+export default function WorkerRow ({ worker }) {
   const [deleteWorker] = useMutation(DELETE_WORKER, {
     variables: { id: worker.id },
-    update(cache, { data: { deleteWorker } }) { 
-      const { worker } = cache.readQuery({ query: GET_WORKERS })
-      cache.writeQuery({
-        query: GET_WORKERS,
-        data: { workers: worker.filter(worker => worker.id !== deleteWorker.id) },
-      })
-    }
+    refetchQueries: [{ query: GET_WORKERS }]
   })
-  console.log('WorkerRow');
   return (
     <tr>
       <td>{ worker.name }</td>
@@ -30,4 +23,3 @@ const WorkerRow = ({ worker }) => {
   )
 }
 
-export default WorkerRow

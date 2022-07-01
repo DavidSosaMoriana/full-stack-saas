@@ -10,7 +10,7 @@ const Workers = () => {
 
   if (loading) return <Spinner />
   if (error) return <p>Something went wrong</p>
-  console.log('Workers');
+
   return (
     <>
       { !loading && !error && (
@@ -25,9 +25,7 @@ const Workers = () => {
           </thead>
           <tbody>
             {data.workers.map((worker) => {
-              return <WorkerRow worker={worker} /> 
-
-              {console.log(worker.id);}
+              return <WorkerRow key={worker.id} worker={worker} /> 
             })}
           </tbody>
         </table>
