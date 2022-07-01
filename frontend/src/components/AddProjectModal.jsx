@@ -3,12 +3,17 @@ import { FaList } from 'react-icons/fa';
 import { useMutation, useQuery } from '@apollo/client';
 import { ADD_WORKER } from '../mutations/WorkerMutations';
 import { GET_PROJECTS } from '../queries/projectQueries';
+import { GET_WORKERS } from '../queries/workerQueries';
+
 
 export default function AddWorkerModal() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [workerId, setWorkerId] = useState('');
   const [status, setStatus] = useState('new');
+
+  //Tomar los clientes para seleccionarlos
+  const {loading, error, data} = useQuery(GET_WORKERS)
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -23,7 +28,8 @@ export default function AddWorkerModal() {
     setWorkerId('')
   }
   
-  
+  if (loading) return null
+  if (error) return 'Something went wrong'
 
   return (
     <>
