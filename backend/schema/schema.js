@@ -94,15 +94,21 @@ const mutation = new GraphQLObjectType({
       },
     },
     // Eliminar un trabajador
-      deleteWorker: {
-        type: WorkerType,
-        args: {
-          id: { type: GraphQLNonNull(GraphQLID) },
-        },
-        resolve (parent, args) {
-          return Worker.findByIdAndRemove(args.id)
-        },
+    deleteWorker: {
+      type: WorkerType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
       },
+      resolve(parent, args) {
+        Project.find({ workerId: args.id }).then((projects) => {
+          projects.forEach((project) => {
+            project.remove();
+          });
+        });
+
+        return Worker.findByIdAndRemove(args.id);
+      },
+    },
       //Asignar proyecto
       addProject: {
         type: ProjectType,
@@ -113,6 +119,7 @@ const mutation = new GraphQLObjectType({
             type: new GraphQLEnumType({
               name: 'ProjectStatus',
               values: {
+                new: { value: 'Not Started' },
                 progress: { value: 'In Progress' },
                 completed: { value: 'Completed' },
               },

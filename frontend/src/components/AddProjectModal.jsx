@@ -94,6 +94,7 @@ export default function AddWorkerModal() {
                   <textarea
                     className='form-control'
                     id='description'
+                    maxlength="100"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}></textarea>
                   
@@ -102,7 +103,7 @@ export default function AddWorkerModal() {
                   <label className='form-label'>Status</label>
                   <select id="status" className="form-select" value={status} onChange={ (e) => setStatus(e.target.value)}
                   >
-                    <option value=''>Not Started</option>
+                    <option value='new'>Not Started</option>
                     <option value="progress">In Progress</option>
                     <option value="completed">Completed</option>
                   </select>

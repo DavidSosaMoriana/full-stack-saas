@@ -3,6 +3,8 @@ import Spinner from '../components/Spinner'
 import WorkerInfo from '../components/WorkerInfo'
 import { useQuery } from '@apollo/client'
 import { GET_PROJECT } from '../queries/projectQueries'
+import DeleteProjectButton from './../components/DeleteProjectButton';
+import EditProjectForm from '../components/EditProjectForm'
 
 
 export default function Project() {
@@ -29,6 +31,10 @@ export default function Project() {
           <p className="lead">{ data.project.status }</p>
 
           <WorkerInfo worker={data.project.worker} />
+
+          <EditProjectForm project={data.project} />
+
+          <DeleteProjectButton projectId={data.project.id} />
         </div>
       ) }
     </>
