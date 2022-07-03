@@ -1,4 +1,4 @@
-# full-stack-saasç
+# full-stack-saas
 
 En la aplicación se pueden observar dos botones, "add worker" y "new project". Ambos actúan como formularios para añadir trabajadores (primero) y proyectos (segundo). 
 
