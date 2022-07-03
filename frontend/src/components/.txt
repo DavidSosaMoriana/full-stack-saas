@@ -1,7 +1,0 @@
-La aplicación se pueden observar dos botones, "add worker" y "add project". Ambos actuan como formularios para añadir trabajadores (primero) y proyectos (segundo). 
-
-Para los proyectos se podra seleccionar su status con las opciones de "Not Started", "In Progress" y "Completed". Tambien se podra asignar dichos proyectos a los trabajadores anteriormente inyectados.
-
-Al terminar estos procesos se pintara en pantalla una tarjeta con el nombre del proyecto, su estado y un boton "view" donde se abrira una nueva pantalla donde poder editar los detalles del proyecto.
-
-En cuanto al trabajador, se pintara una tabla con su nombre, email y localización. Si se elimina desde al trabajador tambien sera eliminado el proyecto al cual fue asignado.
