@@ -1,19 +1,19 @@
 # full-stack-saas
 ![Screenshot_1](https://user-images.githubusercontent.com/79170707/177035874-7aeb7198-f6e8-40ae-87bb-6b97a0291b8b.jpg)
 
+## Usage
+
 Escriban el comando npm run dev para el backend de la aplicación y npm start para el frontend.
+
 Esta es la lista de dependencias que he utilizado;
-    @apollo/client"
-    @testing-library/jest-dom
-    @testing-library/react"
-    @testing-library/user-event
-    graphql
-    react
-    react-dom
-    react-icons
-    react-router-dom
-    react-scripts
-    web-vitals
+    - @apollo/client"
+    - graphql
+    - react
+    - react-dom
+    - react-icons
+    - react-router-dom
+    - react-scripts
+    - web-vitals
 
 En la aplicación se pueden observar dos botones, "add worker" y "new project". Ambos actúan como formularios para añadir trabajadores (primero) y proyectos (segundo). 
 
