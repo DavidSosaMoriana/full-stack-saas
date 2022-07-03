@@ -6,7 +6,6 @@
 Escriban el comando npm run dev para el backend de la aplicación y npm start para el frontend.
 
 ### Dependencias
-Esta es la lista de dependencias que he utilizado;
     @apollo/client,
     graphql,
     react,
@@ -16,6 +15,7 @@ Esta es la lista de dependencias que he utilizado;
     react-scripts,
     web-vitals,
 
+### Descripción
 En la aplicación se pueden observar dos botones, "add worker" y "new project". Ambos actúan como formularios para añadir trabajadores (primero) y proyectos (segundo). 
 
 Para los proyectos se podrá seleccionar su status con las opciones de "Not Started", "In Progress" y "Completed". 
