@@ -10,6 +10,6 @@ const GET_WORKERS = gql`
     }
   }
 `;
-console.log('workerQueries.jsx');
+
 
 export { GET_WORKERS };
